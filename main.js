@@ -62,6 +62,7 @@ function run() {
                         
                         var values = data.shift();
                         values = values.split(",");
+                        var disc;
                         for(var i = 0; i < game.settings.height; i++){
                             for(var j = 0; j < game.settings.width; j++){
                                 if(!game.board[i])
@@ -69,18 +70,17 @@ function run() {
                                 if(!game.board[i][j])
                                     game.board[i][j] = [];
                                 
-                                game.board[i][j] = values[i * game.settings.width + j];
+                                disc = {
+                                    value: values[i * game.settings.width + j],
+                                    x: j,
+                                    y: i
+                                };
+                                game.board[i][j] = disc;
                                 // user checks
-                                if(game.board[i][j] == game.constants.DISC_ENEMY){
-                                    game.discs.enemy.push({
-                                        x: j,
-                                        y: i
-                                    });
-                                } else if(game.board[i][j] == game.constants.DISC_ME){
-                                    game.discs.me.push({
-                                        x: j,
-                                        y: i
-                                    });
+                                if(disc.value == game.constants.DISC_ENEMY){
+                                    game.discs.enemy.push(disc);
+                                } else if(disc.value == game.constants.DISC_ME){
+                                    game.discs.me.push(disc);
                                 }
                             }
                         }
